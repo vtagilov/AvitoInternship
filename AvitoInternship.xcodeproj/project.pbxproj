@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		E7256B672C8C55D200059FC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B662C8C55D200059FC6 /* AppDelegate.swift */; };
 		E7256B692C8C55D200059FC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B682C8C55D200059FC6 /* SceneDelegate.swift */; };
-		E7256B6B2C8C55D200059FC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B6A2C8C55D200059FC6 /* ViewController.swift */; };
-		E7256B6E2C8C55D200059FC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7256B6C2C8C55D200059FC6 /* Main.storyboard */; };
+		E7256B6B2C8C55D200059FC6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B6A2C8C55D200059FC6 /* SearchViewController.swift */; };
 		E7256B702C8C55D400059FC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7256B6F2C8C55D400059FC6 /* Assets.xcassets */; };
 		E7256B732C8C55D400059FC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7256B712C8C55D400059FC6 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -19,8 +18,7 @@
 		E7256B632C8C55D200059FC6 /* AvitoInternship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvitoInternship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7256B662C8C55D200059FC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7256B682C8C55D200059FC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E7256B6A2C8C55D200059FC6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E7256B6D2C8C55D200059FC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E7256B6A2C8C55D200059FC6 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E7256B6F2C8C55D400059FC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E7256B722C8C55D400059FC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E7256B742C8C55D400059FC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,15 +54,62 @@
 		E7256B652C8C55D200059FC6 /* AvitoInternship */ = {
 			isa = PBXGroup;
 			children = (
-				E7256B662C8C55D200059FC6 /* AppDelegate.swift */,
-				E7256B682C8C55D200059FC6 /* SceneDelegate.swift */,
-				E7256B6A2C8C55D200059FC6 /* ViewController.swift */,
-				E7256B6C2C8C55D200059FC6 /* Main.storyboard */,
-				E7256B6F2C8C55D400059FC6 /* Assets.xcassets */,
-				E7256B712C8C55D400059FC6 /* LaunchScreen.storyboard */,
+				E7256B7E2C8C591100059FC6 /* Application */,
+				E7256B7A2C8C581200059FC6 /* Models */,
+				E7256B7B2C8C581A00059FC6 /* Views */,
+				E7256B7C2C8C582000059FC6 /* ViewModels */,
+				E7256B7D2C8C583600059FC6 /* Network */,
+				E7256B7F2C8C595800059FC6 /* Resources */,
 				E7256B742C8C55D400059FC6 /* Info.plist */,
 			);
 			path = AvitoInternship;
+			sourceTree = "<group>";
+		};
+		E7256B7A2C8C581200059FC6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E7256B7B2C8C581A00059FC6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E7256B6A2C8C55D200059FC6 /* SearchViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E7256B7C2C8C582000059FC6 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E7256B7D2C8C583600059FC6 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		E7256B7E2C8C591100059FC6 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				E7256B662C8C55D200059FC6 /* AppDelegate.swift */,
+				E7256B682C8C55D200059FC6 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		E7256B7F2C8C595800059FC6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E7256B6F2C8C55D400059FC6 /* Assets.xcassets */,
+				E7256B712C8C55D400059FC6 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +172,6 @@
 			files = (
 				E7256B732C8C55D400059FC6 /* LaunchScreen.storyboard in Resources */,
 				E7256B702C8C55D400059FC6 /* Assets.xcassets in Resources */,
-				E7256B6E2C8C55D200059FC6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7256B6B2C8C55D200059FC6 /* ViewController.swift in Sources */,
+				E7256B6B2C8C55D200059FC6 /* SearchViewController.swift in Sources */,
 				E7256B672C8C55D200059FC6 /* AppDelegate.swift in Sources */,
 				E7256B692C8C55D200059FC6 /* SceneDelegate.swift in Sources */,
 			);
@@ -147,14 +191,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E7256B6C2C8C55D200059FC6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E7256B6D2C8C55D200059FC6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E7256B712C8C55D400059FC6 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -297,9 +333,9 @@
 				INFOPLIST_FILE = AvitoInternship/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,6 +343,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = vtagilov.AvitoInternship;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -325,9 +365,9 @@
 				INFOPLIST_FILE = AvitoInternship/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -335,6 +375,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = vtagilov.AvitoInternship;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
