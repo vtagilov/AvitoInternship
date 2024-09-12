@@ -46,22 +46,21 @@ final class ErrorView: UIView {
     private func configureView() {
         translatesAutoresizingMaskIntoConstraints = false
         isHidden = true
-        backgroundColor = .gray
+        backgroundColor = .darkGray
         layer.cornerRadius = 8
         clipsToBounds = true
-        
         for subview in [tryAgainButton, label] {
             addSubview(subview)
         }
         
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor),
-            label.topAnchor.constraint(equalTo: topAnchor),
+            label.centerXAnchor.constraint(equalTo: centerXAnchor),
+            label.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             
             tryAgainButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 10),
-            tryAgainButton.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
-            tryAgainButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            tryAgainButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
+            tryAgainButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            tryAgainButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
         ])
     }
 }
