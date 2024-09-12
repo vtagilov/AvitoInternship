@@ -7,17 +7,27 @@
 
 import UIKit
 
-class SuggestCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+final class SuggestCell: UITableViewCell {
+    static let reuseIdentifier = "SuggestTableViewCell"
+    
+    private let label = UILabel()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        label.text = ""
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func configure(_ text: String) {
+        label.text = text
     }
-
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        label.frame = CGRect(x: 5, y: 0, width: frame.width, height: frame.height)
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.darkGray.cgColor
+        layer.cornerRadius = 8
+        clipsToBounds = true
+        self.contentView.addSubview(label)
+    }
 }

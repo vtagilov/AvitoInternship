@@ -10,8 +10,16 @@ import UIKit
 final class SearchField: UIView {
     
     var searchAction: ((String) -> Void)?
+    var queryWasModified: ((String) -> Void)?
     var cellTypeAction: (() -> Void)?
     var sortButtonAction: ((SearchViewModel.SortType) -> Void)?
+    
+    private var suggests = [String]()
+    
+    private let textFieldHeight = 35.0
+    private let cellHeight = 30.0
+    private let tableOffset = 2.0
+    private lazy var heightConstraint: NSLayoutConstraint = heightAnchor.constraint(equalToConstant: 35)
     
     private lazy var textField: UISearchTextField = {
         let textField = UISearchTextField(frame: .zero)
@@ -56,6 +64,19 @@ final class SearchField: UIView {
         return button
     }()
     
+    private lazy var suggetionsTable: UITableView = {
+        let table = UITableView(frame: .zero, style: .plain)
+        table.register(SuggestCell.self, forCellReuseIdentifier: SuggestCell.reuseIdentifier)
+        table.rowHeight = cellHeight
+        table.backgroundColor = .clear
+        table.isScrollEnabled = false
+        table.isHidden = true
+        table.dataSource = self
+        table.delegate = self
+        table.translatesAutoresizingMaskIntoConstraints = false
+        return table
+    }()
+    
     init() {
         super.init(frame: .zero)
         configureView()
@@ -68,36 +89,62 @@ final class SearchField: UIView {
         isLoading ? (loadingIndicator.startAnimating()) : (loadingIndicator.stopAnimating())
     }
     
+    func setSuggests(_ suggests: [String]) {
+        self.suggests = suggests
+        suggetionsTable.reloadData()
+    }
+    
     @objc private func cellTypeButtonTapped() {
         self.cellTypeAction?()
     }
     
+    private func changeSize() {
+        var height = textFieldHeight
+        if textField.isEditing {
+            height += cellHeight * Double(suggests.count) + tableOffset
+        }
+        
+        suggetionsTable.isHidden = !textField.isEditing
+        NSLayoutConstraint.deactivate([heightConstraint])
+        heightConstraint = heightAnchor.constraint(equalToConstant: height)
+        NSLayoutConstraint.activate([heightConstraint])
+    }
+    
     private func configureView() {
+        backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
         
-        for subview in [textField, sortButton, cellTypeButton, loadingIndicator] {
+        for subview in [textField, sortButton, cellTypeButton, loadingIndicator, suggetionsTable] {
             addSubview(subview)
         }
+        
         NSLayoutConstraint.activate([
+            heightConstraint,
+            
             textField.topAnchor.constraint(equalTo: topAnchor),
-            textField.bottomAnchor.constraint(equalTo: bottomAnchor),
+            textField.heightAnchor.constraint(equalToConstant: textFieldHeight),
             textField.leadingAnchor.constraint(equalTo: leadingAnchor),
             textField.trailingAnchor.constraint(equalTo: cellTypeButton.leadingAnchor),
             
-            loadingIndicator.topAnchor.constraint(equalTo: topAnchor),
-            loadingIndicator.bottomAnchor.constraint(equalTo: bottomAnchor),
+            loadingIndicator.topAnchor.constraint(equalTo: textField.topAnchor),
+            loadingIndicator.bottomAnchor.constraint(equalTo: textField.bottomAnchor),
             loadingIndicator.trailingAnchor.constraint(equalTo: textField.trailingAnchor),
             loadingIndicator.heightAnchor.constraint(equalTo: loadingIndicator.widthAnchor, multiplier: 1.0),
             
-            sortButton.topAnchor.constraint(equalTo: topAnchor),
-            sortButton.bottomAnchor.constraint(equalTo: bottomAnchor),
+            sortButton.topAnchor.constraint(equalTo: textField.topAnchor),
+            sortButton.bottomAnchor.constraint(equalTo: textField.bottomAnchor),
             sortButton.trailingAnchor.constraint(equalTo: trailingAnchor),
             sortButton.heightAnchor.constraint(equalTo: sortButton.widthAnchor, multiplier: 1.0),
             
-            cellTypeButton.topAnchor.constraint(equalTo: topAnchor),
-            cellTypeButton.bottomAnchor.constraint(equalTo: bottomAnchor),
+            cellTypeButton.topAnchor.constraint(equalTo: textField.topAnchor),
+            cellTypeButton.bottomAnchor.constraint(equalTo: textField.bottomAnchor),
             cellTypeButton.trailingAnchor.constraint(equalTo: sortButton.leadingAnchor),
             cellTypeButton.heightAnchor.constraint(equalTo: cellTypeButton.widthAnchor, multiplier: 1.0),
+            
+            suggetionsTable.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: tableOffset),
+            suggetionsTable.bottomAnchor.constraint(equalTo: bottomAnchor),
+            suggetionsTable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            suggetionsTable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
         ])
     }
 }
@@ -106,6 +153,12 @@ extension SearchField: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else { return }
         self.searchAction?(text)
+        changeSize()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        queryWasModified?(textField.text ?? "")
+        changeSize()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -113,4 +166,28 @@ extension SearchField: UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        queryWasModified?(textField.text ?? "")
+        changeSize()
+    }
+}
+
+extension SearchField: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return suggests.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SuggestCell.reuseIdentifier)
+        guard let cell = cell as? SuggestCell else { return UITableViewCell() }
+        cell.configure(suggests[indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        textField.resignFirstResponder()
+        let query = suggests[indexPath.row]
+        searchAction?(query)
+        textField.text = query
+    }
 }

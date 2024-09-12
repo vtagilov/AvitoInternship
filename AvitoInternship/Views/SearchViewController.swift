@@ -43,6 +43,7 @@ final class SearchViewController: UIViewController {
     
     private func configureSearchView() {
         searchField.searchAction = { query in
+            self.viewModel.suggester.addQuery(query)
             self.viewModel.performSearchRequest(query: query)
             self.collectionView.models = []
         }
@@ -53,6 +54,10 @@ final class SearchViewController: UIViewController {
         searchField.sortButtonAction = { type in
             self.viewModel.sortType = type
         }
+        searchField.queryWasModified = { text in
+            let suggests = self.viewModel.suggester.getSuggests(text)
+            self.searchField.setSuggests(suggests)
+        }
     }
     
     private func configureErrorView() {
@@ -62,16 +67,15 @@ final class SearchViewController: UIViewController {
     }
     
     private func configureView() {
-        for subview in [searchField, collectionView, errorView] {
+        for subview in [collectionView, searchField, errorView] {
             view.addSubview(subview)
         }
         NSLayoutConstraint.activate([
             searchField.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             searchField.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             searchField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searchField.heightAnchor.constraint(equalToConstant: 35),
             
-            collectionView.topAnchor.constraint(equalTo: searchField.bottomAnchor, constant: 5),
+            collectionView.topAnchor.constraint(equalTo: searchField.topAnchor, constant: 40),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

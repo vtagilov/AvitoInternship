@@ -15,6 +15,10 @@ final class SearchViewModel {
     
     var models = [SearchModel]()
     
+    var searchErrorAction: ((Error) -> ())?
+    var searchResultAction: ((SearchModel) -> ())?
+    var loadingAction: ((Bool) -> ())?
+    
     private var isLoading: Bool = false {
         didSet {
             if isLoading && !oldValue { loadingAction?(true) }
@@ -22,11 +26,8 @@ final class SearchViewModel {
         }
     }
     
-    var searchErrorAction: ((Error) -> ())?
-    var searchResultAction: ((SearchModel) -> ())?
-    var loadingAction: ((Bool) -> ())?
-    
     private let networkManager = NetworkManager()
+    let suggester = SearchSuggester()
     
     private var failureSearchRequest: String? = nil
     private var failureImageDataRequests: [SearchResult] = []
