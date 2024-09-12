@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E70B5A242C92D2AA00D72819 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A232C92D2AA00D72819 /* SearchViewModel.swift */; };
+		E70B5A262C92D2B400D72819 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A252C92D2B400D72819 /* SearchResult.swift */; };
+		E70B5A2A2C92D2E600D72819 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A272C92D2E600D72819 /* SearchCell.swift */; };
+		E70B5A2B2C92D2E600D72819 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A282C92D2E600D72819 /* SearchField.swift */; };
+		E70B5A2C2C92D2E600D72819 /* SearchCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A292C92D2E600D72819 /* SearchCollection.swift */; };
+		E70B5A2E2C92D36D00D72819 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A2D2C92D36D00D72819 /* ErrorView.swift */; };
 		E7256B672C8C55D200059FC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B662C8C55D200059FC6 /* AppDelegate.swift */; };
 		E7256B692C8C55D200059FC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B682C8C55D200059FC6 /* SceneDelegate.swift */; };
 		E7256B6B2C8C55D200059FC6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B6A2C8C55D200059FC6 /* SearchViewController.swift */; };
@@ -16,14 +22,15 @@
 		E7256B832C8DFCAA00059FC6 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B822C8DFCAA00059FC6 /* NetworkError.swift */; };
 		E7256B852C8E076900059FC6 /* URLConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B842C8E076900059FC6 /* URLConfigurator.swift */; };
 		E7256B882C8E2EE500059FC6 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B872C8E2EE500059FC6 /* SearchResponse.swift */; };
-		E7256B942C91EAAA00059FC6 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B932C91EAAA00059FC6 /* SearchResult.swift */; };
-		E7256B962C91EB3E00059FC6 /* SearchCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B952C91EB3E00059FC6 /* SearchCollection.swift */; };
-		E7256B982C91EB5200059FC6 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B972C91EB5200059FC6 /* SearchCell.swift */; };
-		E7256B9A2C91EBBA00059FC6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B992C91EBBA00059FC6 /* SearchViewModel.swift */; };
-		E7256B9C2C91EBF200059FC6 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B9B2C91EBF200059FC6 /* SearchField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E70B5A232C92D2AA00D72819 /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		E70B5A252C92D2B400D72819 /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		E70B5A272C92D2E600D72819 /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		E70B5A282C92D2E600D72819 /* SearchField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchField.swift; sourceTree = "<group>"; };
+		E70B5A292C92D2E600D72819 /* SearchCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollection.swift; sourceTree = "<group>"; };
+		E70B5A2D2C92D36D00D72819 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		E7256B632C8C55D200059FC6 /* AvitoInternship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvitoInternship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7256B662C8C55D200059FC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7256B682C8C55D200059FC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +88,7 @@
 		E7256B7A2C8C581200059FC6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E70B5A252C92D2B400D72819 /* SearchResult.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -89,6 +97,10 @@
 			isa = PBXGroup;
 			children = (
 				E7256B6A2C8C55D200059FC6 /* SearchViewController.swift */,
+				E70B5A272C92D2E600D72819 /* SearchCell.swift */,
+				E70B5A292C92D2E600D72819 /* SearchCollection.swift */,
+				E70B5A282C92D2E600D72819 /* SearchField.swift */,
+				E70B5A2D2C92D36D00D72819 /* ErrorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -96,6 +108,7 @@
 		E7256B7C2C8C582000059FC6 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				E70B5A232C92D2AA00D72819 /* SearchViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -208,11 +221,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7256B882C8E2EE500059FC6 /* SearchResponse.swift in Sources */,
+				E70B5A2A2C92D2E600D72819 /* SearchCell.swift in Sources */,
+				E70B5A262C92D2B400D72819 /* SearchResult.swift in Sources */,
+				E70B5A2C2C92D2E600D72819 /* SearchCollection.swift in Sources */,
 				E7256B812C8DFC6B00059FC6 /* NetworkManager.swift in Sources */,
+				E70B5A2B2C92D2E600D72819 /* SearchField.swift in Sources */,
+				E70B5A242C92D2AA00D72819 /* SearchViewModel.swift in Sources */,
 				E7256B6B2C8C55D200059FC6 /* SearchViewController.swift in Sources */,
 				E7256B852C8E076900059FC6 /* URLConfigurator.swift in Sources */,
 				E7256B672C8C55D200059FC6 /* AppDelegate.swift in Sources */,
 				E7256B692C8C55D200059FC6 /* SceneDelegate.swift in Sources */,
+				E70B5A2E2C92D36D00D72819 /* ErrorView.swift in Sources */,
 				E7256B832C8DFCAA00059FC6 /* NetworkError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
