@@ -16,6 +16,9 @@
 		E70B5A312C92DBC700D72819 /* SearchSuggester.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A302C92DBC700D72819 /* SearchSuggester.swift */; };
 		E70B5A332C9317FF00D72819 /* SuggestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A322C9317FF00D72819 /* SuggestCell.swift */; };
 		E70B5A372C933EAD00D72819 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A362C933EAD00D72819 /* DetailViewController.swift */; };
+		E70B5A392C934F0800D72819 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A382C934F0800D72819 /* DetailViewModel.swift */; };
+		E70B5A3C2C936C7C00D72819 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A3B2C936C7C00D72819 /* DateFormatter.swift */; };
+		E70B5A3E2C936DBD00D72819 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A3D2C936DBD00D72819 /* String.swift */; };
 		E7256B672C8C55D200059FC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B662C8C55D200059FC6 /* AppDelegate.swift */; };
 		E7256B692C8C55D200059FC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B682C8C55D200059FC6 /* SceneDelegate.swift */; };
 		E7256B6B2C8C55D200059FC6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B6A2C8C55D200059FC6 /* SearchViewController.swift */; };
@@ -37,6 +40,9 @@
 		E70B5A302C92DBC700D72819 /* SearchSuggester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggester.swift; sourceTree = "<group>"; };
 		E70B5A322C9317FF00D72819 /* SuggestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestCell.swift; sourceTree = "<group>"; };
 		E70B5A362C933EAD00D72819 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		E70B5A382C934F0800D72819 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		E70B5A3B2C936C7C00D72819 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		E70B5A3D2C936DBD00D72819 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		E7256B632C8C55D200059FC6 /* AvitoInternship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvitoInternship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7256B662C8C55D200059FC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7256B682C8C55D200059FC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +96,15 @@
 			path = DetailScreen;
 			sourceTree = "<group>";
 		};
+		E70B5A3A2C936C5200D72819 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E70B5A3B2C936C7C00D72819 /* DateFormatter.swift */,
+				E70B5A3D2C936DBD00D72819 /* String.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		E7256B5A2C8C55D200059FC6 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +130,7 @@
 				E7256B7C2C8C582000059FC6 /* ViewModels */,
 				E7256B7D2C8C583600059FC6 /* Network */,
 				E70B5A2F2C92DB6900D72819 /* Utilities */,
+				E70B5A3A2C936C5200D72819 /* Extensions */,
 				E7256B7F2C8C595800059FC6 /* Resources */,
 				E7256B742C8C55D400059FC6 /* Info.plist */,
 			);
@@ -142,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				E70B5A232C92D2AA00D72819 /* SearchViewModel.swift */,
+				E70B5A382C934F0800D72819 /* DetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -253,11 +270,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E70B5A3C2C936C7C00D72819 /* DateFormatter.swift in Sources */,
+				E70B5A392C934F0800D72819 /* DetailViewModel.swift in Sources */,
 				E7256B882C8E2EE500059FC6 /* SearchResponse.swift in Sources */,
 				E70B5A2A2C92D2E600D72819 /* SearchCell.swift in Sources */,
 				E70B5A262C92D2B400D72819 /* SearchResult.swift in Sources */,
 				E70B5A2C2C92D2E600D72819 /* SearchCollection.swift in Sources */,
 				E70B5A332C9317FF00D72819 /* SuggestCell.swift in Sources */,
+				E70B5A3E2C936DBD00D72819 /* String.swift in Sources */,
 				E7256B812C8DFC6B00059FC6 /* NetworkManager.swift in Sources */,
 				E70B5A2B2C92D2E600D72819 /* SearchField.swift in Sources */,
 				E70B5A372C933EAD00D72819 /* DetailViewController.swift in Sources */,
@@ -415,6 +435,7 @@
 				DEVELOPMENT_TEAM = KY758VGLM7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AvitoInternship/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Access is required to save images to the device";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -447,6 +468,7 @@
 				DEVELOPMENT_TEAM = KY758VGLM7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AvitoInternship/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Access is required to save images to the device";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

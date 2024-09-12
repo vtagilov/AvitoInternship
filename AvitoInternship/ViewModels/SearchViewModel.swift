@@ -35,16 +35,16 @@ final class SearchViewModel {
     func performSearchRequest(query: String) {
         isLoading = true
         networkManager.searchPhotos(query: query) { result in
-                self.isLoading = false
-                switch result {
-                case .success(let response):
-                    for result in response.results {
-                        self.performImageDataRequest(model: result)
-                    }
-                case .failure(let error):
-                    self.searchErrorAction?(error)
-                    self.failureSearchRequest = query
+            self.isLoading = false
+            switch result {
+            case .success(let response):
+                for result in response.results {
+                    self.performImageDataRequest(model: result)
                 }
+            case .failure(let error):
+                self.searchErrorAction?(error)
+                self.failureSearchRequest = query
+            }
             self.failureImageDataRequests = []
         }
     }
@@ -59,14 +59,16 @@ final class SearchViewModel {
         isLoading = true
         networkManager.getImageData(url: model.urls.regular) { result in
             self.isLoading = false
-                switch result {
-                case .success(let data):
-                    let model = SearchModel(id: model.id, imageData: data, description: model.description ?? "")
-                    self.searchResultAction?(model)
-                case .failure(let error):
-                    self.searchErrorAction?(error)
-                    self.failureImageDataRequests.append(model)
-                }
+            switch result {
+            case .success(let data):
+                let description = model.description ?? (model.alt_description ?? "")
+                let createdDate = DateFormatter().convertToReadableFormat(isoDate: model.created_at)
+                let model = SearchModel(id: model.id, imageData: data, description: description, username: model.user.username, fullImageUrl: model.urls.full, createdDate: createdDate ?? model.created_at)
+                self.searchResultAction?(model)
+            case .failure(let error):
+                self.searchErrorAction?(error)
+                self.failureImageDataRequests.append(model)
+            }
         }
     }
 }

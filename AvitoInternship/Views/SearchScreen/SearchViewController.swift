@@ -19,6 +19,7 @@ final class SearchViewController: UIViewController {
         configureViewModel()
         configureSearchView()
         configureErrorView()
+        configureCollectionView()
     }
     
     private func configureViewModel() {
@@ -63,6 +64,14 @@ final class SearchViewController: UIViewController {
     private func configureErrorView() {
         errorView.tryAgainAction = {
             self.viewModel.tryMakeRequestsAgain()
+        }
+    }
+    
+    private func configureCollectionView() {
+        collectionView.selectAction = { model in
+            let detailVC = DetailViewController()
+            detailVC.configure(model)
+            self.present(detailVC, animated: true)
         }
     }
     

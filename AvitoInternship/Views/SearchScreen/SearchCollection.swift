@@ -15,6 +15,8 @@ final class SearchCollection: UICollectionView {
     
     var models: [SearchModel] = []
     
+    var selectAction: ((SearchModel) -> Void)?
+    
     private let offset = 5.0
     
     init() {
@@ -45,7 +47,8 @@ extension SearchCollection: UICollectionViewDelegate, UICollectionViewDataSource
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("didSelectItem", models[indexPath.row])
+        let model = models[indexPath.row]
+        selectAction?(model)
     }
 }
 

@@ -46,6 +46,9 @@ final class ErrorView: UIView {
     private func configureView() {
         translatesAutoresizingMaskIntoConstraints = false
         isHidden = true
+        backgroundColor = .gray
+        layer.cornerRadius = 8
+        clipsToBounds = true
         
         for subview in [tryAgainButton, label] {
             addSubview(subview)
