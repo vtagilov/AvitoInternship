@@ -28,6 +28,9 @@ final class SearchViewModel {
     
     private let networkManager = NetworkManager()
     
+    private var failureSearchRequest: String? = nil
+    private var failureImageDataRequests: [SearchResult] = []
+    
     func performSearchRequest(query: String) {
         isLoading = true
         networkManager.searchPhotos(query: query) { result in
@@ -39,7 +42,15 @@ final class SearchViewModel {
                     }
                 case .failure(let error):
                     self.searchErrorAction?(error)
+                    self.failureSearchRequest = query
                 }
+            self.failureImageDataRequests = []
+        }
+    }
+    
+    func tryMakeRequestsAgain () {
+        if let query = failureSearchRequest {
+            performSearchRequest(query: query)
         }
     }
     
@@ -53,6 +64,7 @@ final class SearchViewModel {
                     self.searchResultAction?(model)
                 case .failure(let error):
                     self.searchErrorAction?(error)
+                    self.failureImageDataRequests.append(model)
                 }
         }
     }
