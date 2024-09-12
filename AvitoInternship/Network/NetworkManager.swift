@@ -10,13 +10,15 @@ import Foundation
 final class NetworkManager {
     private let apiKey = "uto1-74hCCO8kpWghtfdI8flQQheqzxM3hLEu19D44M"
     
-    func searchPhotos(query: String, completion: @escaping (Result<SearchResponse, Error>) -> Void) {
+    func searchPhotos(query: String, sorted: SearchViewModel.SortType, completion: @escaping (Result<SearchResponse, Error>) -> Void) {
         guard !query.isEmpty else { return }
         guard let url = URLConfigurator().configureURL(
             type: .searchImage,
             params: [
                 .query: query,
-                .apiKey: apiKey
+                .apiKey: apiKey,
+                .sortType: sorted.rawValue,
+                .perPage: "30"
             ]) else {
             completion(.failure(NetworkError.invalidURL))
             return

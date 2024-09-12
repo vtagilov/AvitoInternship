@@ -14,4 +14,5 @@ struct SearchModel {
     let username: String
     let fullImageUrl: String
     let createdDate: String
+    let unixDate: Int
 }

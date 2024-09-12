@@ -41,13 +41,17 @@ final class SearchField: UIView {
         return indicatior
     }()
     
-    private let sortButton: UIButton = {
+    private lazy var sortButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
         button.imageView?.tintColor = .gray
         button.menu = UIMenu(title: "Сортировать", options: [.singleSelection], children: [
-            UIAction(title: "Популярное", state: .on) { _ in },
-            UIAction(title: "Новое", state: .on) { _ in },
+            UIAction(title: "Популярное", state: .on) { _ in
+                self.sortButtonAction?(.popular)
+            },
+            UIAction(title: "Новое", state: .on) { _ in
+                self.sortButtonAction?(.newest)
+            },
         ])
         button.showsMenuAsPrimaryAction = true
         button.translatesAutoresizingMaskIntoConstraints = false

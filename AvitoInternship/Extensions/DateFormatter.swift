@@ -20,4 +20,14 @@ extension DateFormatter {
             return nil
         }
     }
+    
+    func convertDateStringToInt(isoDate: String) -> Int? {
+        let dateFormatter = ISO8601DateFormatter()
+        if let date = dateFormatter.date(from: isoDate) {
+            return Int(date.timeIntervalSince1970)
+        } else {
+            return nil
+        }
+    }
+
 }

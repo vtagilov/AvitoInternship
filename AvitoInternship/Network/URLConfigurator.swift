@@ -15,6 +15,8 @@ final class URLConfigurator {
     enum Parameters: String {
         case query
         case apiKey = "client_id"
+        case sortType = "order_by"
+        case perPage = "per_page"
     }
     
     func configureURL(type: URLType, params: [Parameters: String]) -> URL? {

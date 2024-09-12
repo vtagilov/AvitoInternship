@@ -37,6 +37,9 @@ final class SearchViewController: UIViewController {
         viewModel.searchResultAction = { model in
             DispatchQueue.main.async {
                 self.collectionView.models.append(model)
+                if self.viewModel.sortType == .newest {
+                    self.collectionView.models.sort(by: { $0.unixDate > $1.unixDate })
+                }
                 self.collectionView.reloadData()
             }
         }
@@ -53,7 +56,10 @@ final class SearchViewController: UIViewController {
             self.collectionView.reloadData()
         }
         searchField.sortButtonAction = { type in
-            self.viewModel.sortType = type
+            if type != self.viewModel.sortType {
+                self.collectionView.models = []
+                self.viewModel.sortType = type
+            }
         }
         searchField.queryWasModified = { text in
             let suggests = self.viewModel.suggester.getSuggests(text)

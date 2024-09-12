@@ -22,6 +22,7 @@ struct SearchResult: Decodable {
     let alt_description: String?
     let user: User
     let created_at: String
+    let updated_at: String
 }
 
 struct SearchUrls: Decodable {

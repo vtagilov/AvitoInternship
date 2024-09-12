@@ -8,10 +8,19 @@
 import Foundation
 
 final class SearchViewModel {
-    enum SortType {
-        case popular, newest
+    enum SortType: String {
+        case popular = "relevant"
+        case newest = "lastest"
     }
-    var sortType: SortType = .popular
+    var sortType: SortType = .popular {
+        didSet {
+            if sortType != oldValue {
+                if let query = lastSearchRequest {
+                    performSearchRequest(query: query)
+                }
+            }
+        }
+    }
     
     var models = [SearchModel]()
     
@@ -31,10 +40,12 @@ final class SearchViewModel {
     
     private var failureSearchRequest: String? = nil
     private var failureImageDataRequests: [SearchResult] = []
+    private var lastSearchRequest: String? = nil
     
     func performSearchRequest(query: String) {
+        lastSearchRequest = query
         isLoading = true
-        networkManager.searchPhotos(query: query) { result in
+        networkManager.searchPhotos(query: query, sorted: sortType) { result in
             self.isLoading = false
             switch result {
             case .success(let response):
@@ -62,8 +73,9 @@ final class SearchViewModel {
             switch result {
             case .success(let data):
                 let description = model.description ?? (model.alt_description ?? "")
-                let createdDate = DateFormatter().convertToReadableFormat(isoDate: model.created_at)
-                let model = SearchModel(id: model.id, imageData: data, description: description, username: model.user.username, fullImageUrl: model.urls.full, createdDate: createdDate ?? model.created_at)
+                let createdDate = DateFormatter().convertToReadableFormat(isoDate: model.updated_at) ?? model.updated_at
+                let unixDate = DateFormatter().convertDateStringToInt(isoDate: model.updated_at) ?? 0
+                let model = SearchModel(id: model.id, imageData: data, description: description, username: model.user.username, fullImageUrl: model.urls.full, createdDate: createdDate, unixDate: unixDate)
                 self.searchResultAction?(model)
             case .failure(let error):
                 self.searchErrorAction?(error)
