@@ -11,4 +11,7 @@ struct SearchModel {
     let id: String
     let imageData: Data
     let description: String
+    let username: String
+    let fullImageUrl: String
+    let createdDate: String
 }

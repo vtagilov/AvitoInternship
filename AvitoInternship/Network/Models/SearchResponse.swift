@@ -19,6 +19,9 @@ struct SearchResult: Decodable {
     let height: Int
     let urls: SearchUrls
     let description: String?
+    let alt_description: String?
+    let user: User
+    let created_at: String
 }
 
 struct SearchUrls: Decodable {
@@ -27,4 +30,9 @@ struct SearchUrls: Decodable {
     let regular: String
     let small: String
     let thumb: String
+}
+
+struct User: Decodable {
+    let id: String
+    let username: String
 }
