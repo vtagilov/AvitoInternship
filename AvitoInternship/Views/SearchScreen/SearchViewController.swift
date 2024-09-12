@@ -75,7 +75,7 @@ final class SearchViewController: UIViewController {
             searchField.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             searchField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             
-            collectionView.topAnchor.constraint(equalTo: searchField.topAnchor, constant: 40),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

@@ -19,7 +19,10 @@ final class SearchField: UIView {
     private let textFieldHeight = 35.0
     private let cellHeight = 30.0
     private let tableOffset = 2.0
-    private lazy var heightConstraint: NSLayoutConstraint = heightAnchor.constraint(equalToConstant: 35)
+    private lazy var heightConstraint: [NSLayoutConstraint] = [
+        heightAnchor.constraint(equalToConstant: 35),
+        suggetionsTable.heightAnchor.constraint(equalToConstant: 0)
+        ]
     
     private lazy var textField: UISearchTextField = {
         let textField = UISearchTextField(frame: .zero)
@@ -43,12 +46,8 @@ final class SearchField: UIView {
         button.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
         button.imageView?.tintColor = .gray
         button.menu = UIMenu(title: "Сортировать", options: [.singleSelection], children: [
-            UIAction(title: "Популярное", state: .on) { _ in
-                
-            },
-            UIAction(title: "Новое", state: .on) { _ in
-                
-            }
+            UIAction(title: "Популярное", state: .on) { _ in },
+            UIAction(title: "Новое", state: .on) { _ in },
         ])
         button.showsMenuAsPrimaryAction = true
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -100,14 +99,17 @@ final class SearchField: UIView {
     
     private func changeSize() {
         var height = textFieldHeight
-        if textField.isEditing {
+        if textField.isEditing , !suggests.isEmpty {
             height += cellHeight * Double(suggests.count) + tableOffset
         }
+        NSLayoutConstraint.deactivate(heightConstraint)
+        heightConstraint = [
+            heightAnchor.constraint(equalToConstant: height),
+            suggetionsTable.heightAnchor.constraint(equalToConstant: height - textFieldHeight)
+        ]
+        NSLayoutConstraint.activate(heightConstraint)
         
         suggetionsTable.isHidden = !textField.isEditing
-        NSLayoutConstraint.deactivate([heightConstraint])
-        heightConstraint = heightAnchor.constraint(equalToConstant: height)
-        NSLayoutConstraint.activate([heightConstraint])
     }
     
     private func configureView() {
@@ -119,7 +121,7 @@ final class SearchField: UIView {
         }
         
         NSLayoutConstraint.activate([
-            heightConstraint,
+            heightConstraint[0],
             
             textField.topAnchor.constraint(equalTo: topAnchor),
             textField.heightAnchor.constraint(equalToConstant: textFieldHeight),
@@ -142,7 +144,6 @@ final class SearchField: UIView {
             cellTypeButton.heightAnchor.constraint(equalTo: cellTypeButton.widthAnchor, multiplier: 1.0),
             
             suggetionsTable.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: tableOffset),
-            suggetionsTable.bottomAnchor.constraint(equalTo: bottomAnchor),
             suggetionsTable.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             suggetionsTable.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
         ])

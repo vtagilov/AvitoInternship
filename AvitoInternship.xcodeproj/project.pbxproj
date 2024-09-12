@@ -15,6 +15,7 @@
 		E70B5A2E2C92D36D00D72819 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A2D2C92D36D00D72819 /* ErrorView.swift */; };
 		E70B5A312C92DBC700D72819 /* SearchSuggester.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A302C92DBC700D72819 /* SearchSuggester.swift */; };
 		E70B5A332C9317FF00D72819 /* SuggestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A322C9317FF00D72819 /* SuggestCell.swift */; };
+		E70B5A372C933EAD00D72819 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B5A362C933EAD00D72819 /* DetailViewController.swift */; };
 		E7256B672C8C55D200059FC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B662C8C55D200059FC6 /* AppDelegate.swift */; };
 		E7256B692C8C55D200059FC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B682C8C55D200059FC6 /* SceneDelegate.swift */; };
 		E7256B6B2C8C55D200059FC6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B6A2C8C55D200059FC6 /* SearchViewController.swift */; };
@@ -35,6 +36,7 @@
 		E70B5A2D2C92D36D00D72819 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		E70B5A302C92DBC700D72819 /* SearchSuggester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggester.swift; sourceTree = "<group>"; };
 		E70B5A322C9317FF00D72819 /* SuggestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestCell.swift; sourceTree = "<group>"; };
+		E70B5A362C933EAD00D72819 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E7256B632C8C55D200059FC6 /* AvitoInternship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvitoInternship.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7256B662C8C55D200059FC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7256B682C8C55D200059FC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +67,27 @@
 				E70B5A302C92DBC700D72819 /* SearchSuggester.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E70B5A342C933E7800D72819 /* SearchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E7256B6A2C8C55D200059FC6 /* SearchViewController.swift */,
+				E70B5A272C92D2E600D72819 /* SearchCell.swift */,
+				E70B5A292C92D2E600D72819 /* SearchCollection.swift */,
+				E70B5A282C92D2E600D72819 /* SearchField.swift */,
+				E70B5A2D2C92D36D00D72819 /* ErrorView.swift */,
+				E70B5A322C9317FF00D72819 /* SuggestCell.swift */,
+			);
+			path = SearchScreen;
+			sourceTree = "<group>";
+		};
+		E70B5A352C933E8B00D72819 /* DetailScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E70B5A362C933EAD00D72819 /* DetailViewController.swift */,
+			);
+			path = DetailScreen;
 			sourceTree = "<group>";
 		};
 		E7256B5A2C8C55D200059FC6 = {
@@ -109,12 +132,8 @@
 		E7256B7B2C8C581A00059FC6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E7256B6A2C8C55D200059FC6 /* SearchViewController.swift */,
-				E70B5A272C92D2E600D72819 /* SearchCell.swift */,
-				E70B5A292C92D2E600D72819 /* SearchCollection.swift */,
-				E70B5A282C92D2E600D72819 /* SearchField.swift */,
-				E70B5A2D2C92D36D00D72819 /* ErrorView.swift */,
-				E70B5A322C9317FF00D72819 /* SuggestCell.swift */,
+				E70B5A352C933E8B00D72819 /* DetailScreen */,
+				E70B5A342C933E7800D72819 /* SearchScreen */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -241,6 +260,7 @@
 				E70B5A332C9317FF00D72819 /* SuggestCell.swift in Sources */,
 				E7256B812C8DFC6B00059FC6 /* NetworkManager.swift in Sources */,
 				E70B5A2B2C92D2E600D72819 /* SearchField.swift in Sources */,
+				E70B5A372C933EAD00D72819 /* DetailViewController.swift in Sources */,
 				E70B5A242C92D2AA00D72819 /* SearchViewModel.swift in Sources */,
 				E7256B6B2C8C55D200059FC6 /* SearchViewController.swift in Sources */,
 				E7256B852C8E076900059FC6 /* URLConfigurator.swift in Sources */,
