@@ -18,6 +18,7 @@ struct SearchResult: Decodable {
     let width: Int
     let height: Int
     let urls: SearchUrls
+    let description: String?
 }
 
 struct SearchUrls: Decodable {
