@@ -16,6 +16,11 @@
 		E7256B832C8DFCAA00059FC6 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B822C8DFCAA00059FC6 /* NetworkError.swift */; };
 		E7256B852C8E076900059FC6 /* URLConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B842C8E076900059FC6 /* URLConfigurator.swift */; };
 		E7256B882C8E2EE500059FC6 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B872C8E2EE500059FC6 /* SearchResponse.swift */; };
+		E7256B942C91EAAA00059FC6 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B932C91EAAA00059FC6 /* SearchResult.swift */; };
+		E7256B962C91EB3E00059FC6 /* SearchCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B952C91EB3E00059FC6 /* SearchCollection.swift */; };
+		E7256B982C91EB5200059FC6 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B972C91EB5200059FC6 /* SearchCell.swift */; };
+		E7256B9A2C91EBBA00059FC6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B992C91EBBA00059FC6 /* SearchViewModel.swift */; };
+		E7256B9C2C91EBF200059FC6 /* SearchField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7256B9B2C91EBF200059FC6 /* SearchField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
