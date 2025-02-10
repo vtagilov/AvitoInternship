@@ -1,0 +1,16 @@
+# Xcode
+xcuserdata/
+DerivedData/
+*.xccheckout
+*.xcuserstate
+.idea/
+
+# Swift Package Manager
+/.build/
+Package.resolved
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
