@@ -6,9 +6,3 @@ struct ProductDTO: Decodable {
     let category: CategoryDTO
     let images: [String]
 }
-
-struct CategoryDTO: Decodable {
-    let id: Int
-    let name: String
-    let image: String
-}
