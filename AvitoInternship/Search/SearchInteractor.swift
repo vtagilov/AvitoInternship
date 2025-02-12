@@ -2,16 +2,26 @@ import Foundation
 import UIKit
 
 final class SearchInteractor: Interactor {
-
     weak var presenter: SearchPresenter!
+    
     private let networkManager: NetworkManager
+    private var categories = [Category]()
+    private var fetchedProductsCounter = 0
+    private var isProductsLoading = false
 
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
     }
 
     func fetchProducts() async -> NetworkResult<[PreviewProduct]> {
-        let url = Endpoint.products.url
+        if isProductsLoading { return .success([]) }
+        isProductsLoading = true
+        defer { isProductsLoading = false }
+        let url = Endpoint.products.urlWithParams([
+            .limit: "\(ConfigManager.productsPerRequest)",
+            .offset: "\(fetchedProductsCounter)"
+        ])
+        fetchedProductsCounter += ConfigManager.productsPerRequest
         let result = await networkManager.fetchModel(type: [ProductDTO].self, urlStr: url)
         switch result {
         case .success(let modelsDTO):
@@ -32,12 +42,15 @@ final class SearchInteractor: Interactor {
             return .failure(error)
         }
     }
+    
+    // MARK: - Private methods
 
     private func fetchImage(url: String) async -> NetworkResult<UIImage> {
         let result = await networkManager.fetchData(urlStr: url)
         switch result {
         case .success(let data):
             guard let image = UIImage(data: data) else {
+                print("SearchInteractor. fetchImage Error: Could not create UIImage from data")
                 return .failure(.decodeError(nil))
             }
             return .success(image)
@@ -49,7 +62,7 @@ final class SearchInteractor: Interactor {
     private func processProductsDTO(modelsDTO: [ProductDTO]) async -> [PreviewProduct] {
         var resultModels = [PreviewProduct]()
         for modelDTO in modelsDTO {
-            let category = presenter.getCategory(id: modelDTO.id)
+            let category = await getCategory(category: modelDTO.category)
             let image: UIImage
             if let previewImageUrl = modelDTO.images.first {
                 switch await fetchImage(url: previewImageUrl) {
@@ -83,6 +96,19 @@ final class SearchInteractor: Interactor {
             let model = Category(modelDTO: modelDTO, image: image)
             resultModels.append(model)
         }
+        categories += resultModels
         return .success(resultModels)
+    }
+    
+    private func getCategory(category: CategoryDTO) async -> Category {
+        if let category = categories.first(where: { $0.id == category.id }) {
+            return category
+        }
+        if case .success(let categories) = await processCategoriesDTO(modelsDTO: [category]) {
+            if let category = categories.first {
+                return category
+            }
+        }
+        return Category.unknown
     }
 }

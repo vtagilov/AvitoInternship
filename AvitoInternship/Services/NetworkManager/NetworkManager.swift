@@ -2,7 +2,7 @@ import Foundation
 
 enum NetworkError: Error {
     case badURL(String)
-    case unknown(Error)
+    case unknown(Error?)
     case network(URLError)
     case decodeError(Error?)
 }
@@ -25,8 +25,10 @@ final class NetworkManager {
         guard let url = URL(string: urlStr) else {
             return .failure(.badURL(urlStr))
         }
+        print("REQUEST URL: \(url)")
         do {
             let result = try await URLSession.shared.data(from: url)
+            print("REQUEST (\(url). RESULT: \(result)")
             return .success(result.0)
         } catch let urlError as URLError {
             return .failure(.network(urlError))
