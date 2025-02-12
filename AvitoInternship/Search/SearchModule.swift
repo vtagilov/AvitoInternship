@@ -36,6 +36,7 @@ final class SearchModuleFactory: ModuleFactory {
         let router = SearchRouter()
 
         view.presenter = presenter
+        interactor.presenter = presenter
         presenter.view = view
 
         let module = SearchModule(

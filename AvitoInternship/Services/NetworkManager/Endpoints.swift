@@ -1,8 +1,13 @@
 import Foundation
 
-public enum Endpoints {
+public enum Endpoint: String {
     private static let baseURL = "https://api.escuelajs.co/api/"
     private static let version = "v1/"
 
-    static let products = baseURL + version + "products"
+    case products
+    case categories
+
+    var url: String {
+        return Endpoint.baseURL + Endpoint.version + self.rawValue
+    }
 }

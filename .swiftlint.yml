@@ -1,2 +1,4 @@
-type_name:
-  min_length: 1
+disabled_rules:
+  - identifier_name
+  - type_name
+  - trailing_whitespace

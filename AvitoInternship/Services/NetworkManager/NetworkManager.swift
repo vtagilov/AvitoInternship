@@ -4,17 +4,30 @@ enum NetworkError: Error {
     case badURL(String)
     case unknown(Error)
     case network(URLError)
-    case decodeError(Error)
+    case decodeError(Error?)
 }
 
-typealias NetworkResult<T: Decodable> = Result<T, NetworkError>
+typealias NetworkResult<T> = Result<T, NetworkError>
 
 final class NetworkManager {
 
-    public func fetchData<T: Decodable>(type: T.Type, url: URL) async -> NetworkResult<T> {
+    public func fetchModel<T: Decodable>(type: T.Type, urlStr: String) async -> NetworkResult<T> {
+        let dataResult = await fetchData(urlStr: urlStr)
+        switch dataResult {
+        case .success(let data):
+            return decodeData(data: data)
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+
+    public func fetchData(urlStr: String) async -> NetworkResult<Data> {
+        guard let url = URL(string: urlStr) else {
+            return .failure(.badURL(urlStr))
+        }
         do {
             let result = try await URLSession.shared.data(from: url)
-            return decodeData(data: result.0)
+            return .success(result.0)
         } catch let urlError as URLError {
             return .failure(.network(urlError))
         } catch {

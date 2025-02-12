@@ -2,7 +2,7 @@ import UIKit
 
 protocol View: UIViewController { }
 protocol Interactor { }
-protocol Presenter { }
+protocol Presenter: AnyObject { }
 protocol Router { }
 protocol Context { }
 
