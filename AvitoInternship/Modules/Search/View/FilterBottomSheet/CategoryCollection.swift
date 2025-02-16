@@ -1,11 +1,13 @@
 import UIKit
 
 protocol CategoryFilterDelegate: AnyObject {
-    func categoryWasTapped(category: Category, isSelected: Bool)
+    func categoryWasTapped(category: Category?)
 }
 
 final class CategoryCollectionView: BaseCollectionView<Category, CategoryCell> {
     weak var categoryFilterDelegate: CategoryFilterDelegate?
+    
+    private var selectedCategoryId: Int?
     
     init(itemWidth: CGFloat) {
         let layout = UICollectionViewFlowLayout()
@@ -21,12 +23,23 @@ final class CategoryCollectionView: BaseCollectionView<Category, CategoryCell> {
     }
     
     override func configureCell(_ cell: CategoryCell, with item: Category, at indexPath: IndexPath) {
-        cell.configureCell(model: item)
+        cell.configureCell(model: item, isSelected: item.id == selectedCategoryId)
     }
 
     override func didSelectItem(_ item: Category, at indexPath: IndexPath) {
         print("SearchCollectionView. didSelectItem:", item)
         guard let cell = cellForItem(at: indexPath) as? CategoryCell else { return }
-        categoryFilterDelegate?.categoryWasTapped(category: item, isSelected: cell.isSelected)
+        if item.id == selectedCategoryId {
+            cell.updateState(isSelected: false)
+            selectedCategoryId = nil
+            categoryFilterDelegate?.categoryWasTapped(category: nil)
+        } else {
+            if let lastSelectedCell = cellForItem(at: indexPath) as? CategoryCell {
+                lastSelectedCell.updateState(isSelected: false)
+            }
+            cell.updateState(isSelected: true)
+            selectedCategoryId = item.id
+            categoryFilterDelegate?.categoryWasTapped(category: item)
+        }
     }
 }

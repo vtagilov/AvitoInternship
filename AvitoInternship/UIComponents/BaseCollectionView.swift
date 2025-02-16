@@ -36,6 +36,11 @@ class BaseCollectionView<Model, Cell: BaseCollectionCell>:
         models = newModels
         reloadData()
     }
+    
+    func updateItem(_ newItem: Model, index: IndexPath) {
+        models[index.row] = newItem
+        reloadItems(at: [index])
+    }
 
     func configureCell(_ cell: Cell, with item: Model, at indexPath: IndexPath) {
         fatalError("Должен быть переопределен в подклассе")
@@ -68,6 +73,12 @@ class BaseCollectionView<Model, Cell: BaseCollectionCell>:
         let model = models[indexPath.row]
         didSelectItem(model, at: indexPath)
     }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        willDisplay cell: UICollectionViewCell,
+        forItemAt indexPath: IndexPath
+    ) { }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) { }
 }

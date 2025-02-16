@@ -4,7 +4,10 @@ final class SearchRouter: Router {
     weak var view: UIViewController?
     weak var filterDelegate: FilterBottomSheetDelegate?
     
-    init(view: UIViewController) {
+    private let coreRouter: CoreRouter
+    
+    init(coreRouter: CoreRouter, view: UIViewController) {
+        self.coreRouter = coreRouter
         self.view = view
     }
     
@@ -17,5 +20,9 @@ final class SearchRouter: Router {
             sheet.detents = [.medium(), .medium()]
         }
         view?.present(bottomSheet, animated: true)
+    }
+    
+    func showProductCard(product: PreviewProduct) {
+        coreRouter.navigateToDetailScreen(product: product)
     }
 }

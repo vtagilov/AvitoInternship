@@ -6,14 +6,6 @@ final class CategoryCell: UICollectionViewCell, BaseCollectionCell {
     private var model: Category?
     private lazy var titleLabel = UILabel(frame: .zero)
     private lazy var backView = UIView()
-    
-    override var isSelected: Bool {
-        didSet {
-            let temp = backView.backgroundColor
-            backView.backgroundColor = titleLabel.textColor
-            titleLabel.textColor = temp
-        }
-    }
         
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -23,9 +15,26 @@ final class CategoryCell: UICollectionViewCell, BaseCollectionCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(model: Category) {
+    func configureCell(model: Category, isSelected: Bool) {
         self.model = model
+        if isSelected {
+            backView.backgroundColor = .white
+            titleLabel.textColor = .primaryBackground
+        } else {
+            backView.backgroundColor = .primaryBackground
+            titleLabel.textColor = .contentColor
+        }
         titleLabel.text = model.name
+    }
+    
+    func updateState(isSelected: Bool) {
+        if isSelected {
+            backView.backgroundColor = .white
+            titleLabel.textColor = .primaryBackground
+        } else {
+            backView.backgroundColor = .primaryBackground
+            titleLabel.textColor = .contentColor
+        }
     }
     
     private func configureView() {

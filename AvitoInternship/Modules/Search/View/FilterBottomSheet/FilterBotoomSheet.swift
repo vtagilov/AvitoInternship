@@ -165,7 +165,7 @@ final class FilterBottomSheet: UIViewController {
 }
 
 extension FilterBottomSheet: CategoryFilterDelegate {
-    func categoryWasTapped(category: Category, isSelected: Bool) {
-        selectedModel = category
+    func categoryWasTapped(category: Category?) {
+        self.selectedModel = category
     }
 }

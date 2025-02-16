@@ -5,7 +5,6 @@ protocol ErrorViewDelegate: AnyObject {
 }
 
 final class ErrorView: UIView {
-    
     weak var delegate: ErrorViewDelegate?
     
     private lazy var label = UILabel(frame: .zero)

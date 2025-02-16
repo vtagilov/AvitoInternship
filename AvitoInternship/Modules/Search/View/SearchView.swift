@@ -32,12 +32,13 @@ final class SearchViewController: UIViewController, SearchView {
         presenter.loadProducts(nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     func addProducts(products: [PreviewProduct]) {
         collectionView.addItems(products)
         updateState(.common)
-    }
-
-    func showCategories(categories: [Category]) {
     }
     
     func setProducts(products: [PreviewProduct]) {
@@ -80,7 +81,6 @@ extension SearchViewController {
     }
 
     private func configureView() {
-        navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .primaryBackground
         
         searchBar.searchDelegate = self

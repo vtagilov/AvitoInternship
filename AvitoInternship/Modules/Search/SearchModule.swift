@@ -19,9 +19,11 @@ final class SearchModule: Module {
 
 struct SearchModuleContext: Context {
     let networkManager: NetworkManager
+    let coreRouter: CoreRouter
 
     init(appContext: AppContext) {
         self.networkManager = appContext.networkManager
+        self.coreRouter = appContext.coreRouter
     }
 }
 
@@ -33,7 +35,7 @@ final class SearchModuleFactory: ModuleFactory {
         let view = SearchViewController()
         let interactor = SearchInteractor(networkManager: context.networkManager)
         let presenter = SearchPresenterImpl(interactor: interactor)
-        let router = SearchRouter(view: view)
+        let router = SearchRouter(coreRouter: context.coreRouter, view: view)
 
         view.presenter = presenter
         interactor.presenter = presenter

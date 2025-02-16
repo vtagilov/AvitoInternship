@@ -81,7 +81,7 @@ final class SearchPresenterImpl: SearchPresenter {
     }
     
     func productSelected(product: PreviewProduct) {
-        
+        router?.showProductCard(product: product)
     }
 }
 

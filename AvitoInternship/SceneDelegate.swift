@@ -4,7 +4,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    private var coreRouter: CoreRouter?
     private var appContext = AppContext()
 
     func scene(
@@ -14,9 +13,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let scene = (scene as? UIWindowScene) else { return }
 
-        let navigationController = UINavigationController()
-        coreRouter = CoreRouterImpl(navigationController: navigationController)
-        coreRouter?.navigateToSearchScreen(appContext: appContext)
+        appContext.coreRouter.navigateToSearchScreen()
+        let navigationController = appContext.coreRouter.navigationController
 
         window = UIWindow(windowScene: scene)
         window?.rootViewController = navigationController
