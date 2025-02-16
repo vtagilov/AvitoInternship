@@ -3,7 +3,9 @@ import UIKit
 protocol View: UIViewController { }
 protocol Interactor { }
 protocol Presenter: AnyObject { }
-protocol Router { }
+protocol Router {
+    var view: UIViewController? { get set }
+}
 protocol Context { }
 
 protocol Module {

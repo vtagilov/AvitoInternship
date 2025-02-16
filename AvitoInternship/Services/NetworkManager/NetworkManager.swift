@@ -5,6 +5,7 @@ enum NetworkError: Error {
     case unknown(Error?)
     case network(URLError)
     case decodeError(Error?)
+    case alreadyLoading
 }
 
 typealias NetworkResult<T> = Result<T, NetworkError>

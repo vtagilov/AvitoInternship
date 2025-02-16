@@ -4,42 +4,110 @@ import UIKit
 final class SearchInteractor: Interactor {
     weak var presenter: SearchPresenter!
     
+    var categories = [Category]()
+    
     private let networkManager: NetworkManager
-    private var categories = [Category]()
+    
     private var fetchedProductsCounter = 0
-    private var isProductsLoading = false
+    private var lastProductsRequestTitle: String?
+    private var lastFilters: FilterContext?
+    private var productsTask: Task<NetworkResult<[PreviewProduct]>, Never>? {
+        didSet { oldValue?.cancel() }
+    }
 
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
     }
 
-    func fetchProducts() async -> NetworkResult<[PreviewProduct]> {
-        if isProductsLoading { return .success([]) }
-        isProductsLoading = true
-        defer { isProductsLoading = false }
+    func fetchProducts(
+        title: String?
+    ) async -> NetworkResult<[PreviewProduct]> {
+        productsTask?.cancel()
+        fetchedProductsCounter = 0
+        lastProductsRequestTitle = title
+        productsTask = nil
+        defer { productsTask = nil }
         let url = Endpoint.products.urlWithParams([
             .limit: "\(ConfigManager.productsPerRequest)",
-            .offset: "\(fetchedProductsCounter)"
-        ])
+            .offset: "\(fetchedProductsCounter)",
+            .title: title
+        ], lastFilters)
         fetchedProductsCounter += ConfigManager.productsPerRequest
-        let result = await networkManager.fetchModel(type: [ProductDTO].self, urlStr: url)
-        switch result {
-        case .success(let modelsDTO):
-            let models = await processProductsDTO(modelsDTO: modelsDTO)
-            return .success(models)
-        case .failure(let error):
-            return .failure(error)
+        
+        productsTask = Task {
+            let result = await networkManager.fetchModel(type: [ProductDTO].self, urlStr: url)
+            switch result {
+            case .success(let modelsDTO):
+                let models = await processProductsDTO(modelsDTO: modelsDTO)
+                return .success(models)
+            case .failure(let error):
+                return .failure(error)
+            }
         }
+        
+        return await productsTask!.value
     }
     
-    func fetchCategories() async -> NetworkResult<[Category]> {
-        let url = Endpoint.categories.url
-        let result = await networkManager.fetchModel(type: [CategoryDTO].self, urlStr: url)
-        switch result {
-        case .success(let modelsDTO):
-            return await processCategoriesDTO(modelsDTO: modelsDTO)
-        case .failure(let error):
-            return .failure(error)
+    func fetchMoreProducts() async -> NetworkResult<[PreviewProduct]> {
+        if productsTask != nil { return .failure(.alreadyLoading) }
+        let url = Endpoint.products.urlWithParams([
+            .limit: "\(ConfigManager.productsPerRequest)",
+            .offset: "\(fetchedProductsCounter)",
+            .title: lastProductsRequestTitle
+        ], lastFilters)
+        fetchedProductsCounter += ConfigManager.productsPerRequest
+        
+        productsTask = Task {
+            let result = await networkManager.fetchModel(type: [ProductDTO].self, urlStr: url)
+            switch result {
+            case .success(let modelsDTO):
+                let models = await processProductsDTO(modelsDTO: modelsDTO)
+                return .success(models)
+            case .failure(let error):
+                return .failure(error)
+            }
+        }
+        
+        return await productsTask!.value
+    }
+    
+    func fetchProductsWithFilters(context: FilterContext? = nil) async -> NetworkResult<[PreviewProduct]> {
+        productsTask?.cancel()
+        fetchedProductsCounter = 0
+        lastFilters = context
+        productsTask = nil
+        defer { productsTask = nil }
+        let url = Endpoint.products.urlWithParams([
+            .limit: "\(ConfigManager.productsPerRequest)",
+            .offset: "\(fetchedProductsCounter)",
+            .title: lastProductsRequestTitle
+        ], context)
+        fetchedProductsCounter += ConfigManager.productsPerRequest
+        
+        productsTask = Task {
+            let result = await networkManager.fetchModel(type: [ProductDTO].self, urlStr: url)
+            switch result {
+            case .success(let modelsDTO):
+                let models = await processProductsDTO(modelsDTO: modelsDTO)
+                return .success(models)
+            case .failure(let error):
+                return .failure(error)
+            }
+        }
+        
+        return await productsTask!.value
+    }
+    
+    func fetchCategories() {
+        Task {
+            let url = Endpoint.categories.url
+            let result = await networkManager.fetchModel(type: [CategoryDTO].self, urlStr: url)
+            if case .success(let modelsDTO) = result {
+                DispatchQueue.main.async {
+                    let models = modelsDTO.map { Category(modelDTO: $0) }
+                    self.categories += models
+                }
+            }
         }
     }
     
@@ -49,16 +117,18 @@ final class SearchInteractor: Interactor {
         let result = await networkManager.fetchData(urlStr: url)
         switch result {
         case .success(let data):
-            guard let image = UIImage(data: data) else {
+            if let image = UIImage(data: data) {
+                return .success(image)
+            } else {
                 print("SearchInteractor. fetchImage Error: Could not create UIImage from data")
-                return .failure(.decodeError(nil))
+                return .success(UIImage.errorImage)
             }
-            return .success(image)
         case .failure(let error):
             return .failure(error)
         }
     }
     
+    @MainActor
     private func processProductsDTO(modelsDTO: [ProductDTO]) async -> [PreviewProduct] {
         var resultModels = [PreviewProduct]()
         for modelDTO in modelsDTO {
@@ -69,46 +139,26 @@ final class SearchInteractor: Interactor {
                 case .success(let fetchedImage):
                     image = fetchedImage
                 case .failure(let error):
-                    print("SearchInteractor. processCategoriesDTO Error: \(error)")
-                    image = UIImage()
+                    print("SearchInteractor. processProductsDTO Error: \(error)")
+                    image = UIImage.errorImage
                 }
             } else {
                 print("SearchInteractor. processProductsDTO: \(modelDTO) doesn't have image url")
-                image = UIImage()
+                image = UIImage.errorImage
             }
             let model = PreviewProduct(modelDTO: modelDTO, image: image, category: category)
             resultModels.append(model)
         }
+        productsTask = nil
         return resultModels
     }
 
-    private func processCategoriesDTO(modelsDTO: [CategoryDTO]) async -> NetworkResult<[Category]> {
-        var resultModels = [Category]()
-        for modelDTO in modelsDTO {
-            let image: UIImage
-            switch await fetchImage(url: modelDTO.image) {
-            case .success(let fetchedImage):
-                image = fetchedImage
-            case .failure(let error):
-                print("SearchInteractor. processCategoriesDTO Error: \(error)")
-                image = UIImage()
-            }
-            let model = Category(modelDTO: modelDTO, image: image)
-            resultModels.append(model)
-        }
-        categories += resultModels
-        return .success(resultModels)
-    }
-    
     private func getCategory(category: CategoryDTO) async -> Category {
         if let category = categories.first(where: { $0.id == category.id }) {
             return category
         }
-        if case .success(let categories) = await processCategoriesDTO(modelsDTO: [category]) {
-            if let category = categories.first {
-                return category
-            }
-        }
-        return Category.unknown
+        let category = Category(modelDTO: category)
+        categories += [category]
+        return category
     }
 }

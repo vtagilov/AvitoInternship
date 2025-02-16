@@ -33,11 +33,13 @@ final class SearchModuleFactory: ModuleFactory {
         let view = SearchViewController()
         let interactor = SearchInteractor(networkManager: context.networkManager)
         let presenter = SearchPresenterImpl(interactor: interactor)
-        let router = SearchRouter()
+        let router = SearchRouter(view: view)
 
         view.presenter = presenter
         interactor.presenter = presenter
         presenter.view = view
+        presenter.router = router
+        router.filterDelegate = presenter
 
         let module = SearchModule(
             view: view,

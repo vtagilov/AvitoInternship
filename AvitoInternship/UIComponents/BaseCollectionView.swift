@@ -31,6 +31,11 @@ class BaseCollectionView<Model, Cell: BaseCollectionCell>:
         models += newModels
         insertItems(at: indexPaths)
     }
+    
+    func setItems(_ newModels: [Model]) {
+        models = newModels
+        reloadData()
+    }
 
     func configureCell(_ cell: Cell, with item: Model, at indexPath: IndexPath) {
         fatalError("Должен быть переопределен в подклассе")
